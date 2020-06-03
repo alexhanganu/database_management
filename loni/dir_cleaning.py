@@ -1,20 +1,23 @@
-# 2020-05-21
+# 2020-06-02
 '''
 zip files downloaded from the ADNI database have many MRI sequences that are not needed for the analysis.
 This script searches each Subject_ID folder for the sequences described in 
 terms_2_rm
 and removes those folders
 this allows to diminish the size of the stored data and also keep only the sequences that are needed
+
+has some issues, sometime MPRAGE is removed.
 '''
 
 
 import os, shutil
 
-terms_2_rm = ['calibration','loc','scout','relCBF','cerebral_blood_flow','asset','survey',
+terms_2_rm = ['calibration','scout','relCBF','cerebral_blood_flow','asset','survey',
 			'3D_PASL','3d_pcasl','tgse_pcasl','axial_2d_pasl','double_tse','sPWI','fcmri',
 			'average_dc','isotropic_image','Perfusion_Weighted','ASL_PERFUSION',
-			'T2_TSE','t2-tse','t2_fse','t2-fse','pd_t2','pd-t2','8hrbrain','fgre',
-			'take_off_auto_send','fractional_aniso','fractional_ansio'] #list of terms that if present in the content - will be removed
+			'8hrbrain',	'take_off_auto_send','fractional_aniso','fractional_ansio']
+			#'T2_TSE','t2-tse','t2_fse','t2-fse','pd_t2','pd-t2','fgre','loc'
+			#list of terms that if present in the content - will be removed
 
 
 class CleanDirs():
