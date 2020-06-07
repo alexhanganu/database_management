@@ -15,6 +15,10 @@ the script will search for that Subject_ID in all downloaded_zip_files and will 
 Alternatively, if definition_adni.ADNI_subjects is completed (a dictionary in which ADNI zip files are provided with corresponding Subject_ID)
 the script will search the specific Subject_ID in the ADNI_subjects dictionary.
 
+
+consider using pigz to archive with 4 cores:
+tar -vc --use-compress-program="pigz -p 4" -f dir.tar.gz dir_to_tar
+
 '''
 
 

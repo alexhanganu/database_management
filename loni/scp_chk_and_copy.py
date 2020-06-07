@@ -14,6 +14,7 @@ source ~/.bashrc
 conda install paramiko
 after that you can use the python from the miniconda, that has paramiko installed
 '''
+
 username = 'hanganua'
 HOST = 'beluga.calculquebec.ca'
 
