@@ -26,14 +26,15 @@ HOST = 'cedar.computecanada.ca'
 path_projects = '/home/'+username+'/projects/def-hanganua'
 path_src = path_projects+'/fs-subjects' # path that contains the files or folders t$
 path_log = path_projects+'/scripts/scp_log.txt' # path where a log file will be stored tha$
-path_dst = path_projects+'/fs-subjects' # path to the remote folder that the files/ folders w$
+path_dst = path_projects #+'/fs-subjects' # path to the remote folder that the files/ folders w$
+path_credentials = '/home/'+username # path to the txt-like file named "credentials" that will contain the follow$
+dir_name = 'fs_registered'
 
 '''
 username = 'string' # username to access the remote computer
 mot_de_pass = 'string' # password to access the remote computer
 HOST = 'name.address.com' # host name of the remote computer
 '''
-path_credentials = '/home/'+username # path to the txt-like file named "credentials" that will contain the follow$
 
 
 
@@ -50,11 +51,13 @@ except ImportError:
 
 
 os.chdir(path_projects)
-os.mkdir(path_projects+'/fs_registered')
+os.mkdir(path_projects+'/'+dir_name)
 
 for val in [i for i in os.listdir(path_src) if 'ADNI' in i]:
-        shutil.move(path_src+'/'+val, path_projects+'/fs_registered/'+val)
-os.system('zip -q -r fs_registered.zip, fs_registered/')
+        shutil.move(path_src+'/'+val, path_projects+'/'+dir_name+'/'+val)
+f_2cp = dir_name+'.zip'
+
+os.system('zip -q -r '+f_2cp+' '+dir_name)
 
 
 client = paramiko.SSHClient()
@@ -66,7 +69,6 @@ client.connect(HOST, username=username, password=mot_de_pass)
 ls_copy_error = list()
 
 sftp = client.open_sftp()
-f_2cp = '/fs_registered.zip'
 size_src = os.path.getsize(path_projects+'/'+f_2cp)
 os.system('scp '+path_projects+'/'+f_2cp+' '+username+'@'+HOST+':'+path_dst)
 
