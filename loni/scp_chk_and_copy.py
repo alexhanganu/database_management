@@ -17,15 +17,17 @@ after that you can use the python from the miniconda, that has paramiko installe
 
 username = 'hanganua'
 HOST = 'beluga.calculquebec.ca'
+path_credentials = '/home/'+username # path to the txt-like file named "credentials" that will contain the follow$
 
 path_dst_dir_adni = '/adni/processed_fs' # on beluga
 path_dst_dir_ppmi = '/ppmi/processed_fs' # on elm
 
 path_dst_dir = path_dst_dir_adni
-path_home = '/home'
-path_projects = '/projects/def-hanganua'
-path_src = path_home+'/'+username+path_projects+'/subjects_processed' # path that contains the files or folders t$
-path_log = path_home+'/'+username+path_projects+'/scripts/scp_log.txt' # path where a log file will be stored tha$
+
+path_projects = '/home/'+username+'/projects/def-hanganua'
+path_src = path_projects+'/subjects_processed' # path that contains the files or folders t$
+path_log = path_projects+'/scripts/scp_log.txt' # path where a log file will be stored tha$
+path_dst = path_projects+path_dst_dir # path to the remote folder that the files/ folders w$
 
 
 '''
@@ -33,7 +35,6 @@ username = 'string' # username to access the remote computer
 mot_de_pass = 'string' # password to access the remote computer
 HOST = 'name.address.com' # host name of the remote computer
 '''
-path_credentials = '/home/'+username # path to the txt-like file named "credentials" that will contain the follow$
 
 
 
@@ -48,7 +49,6 @@ except ImportError:
         print('file with credentials was not found')
         raise SystemExit()
 
-path_dst = '/home/'+username+'/'+path_projects+path_dst_dir # path to the remote folder that the files/ folders w$
 
 
 
