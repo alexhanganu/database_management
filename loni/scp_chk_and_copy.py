@@ -42,7 +42,7 @@ path_credentials = '/home/'+username # path to the txt-like file named "credenti
 import os, paramiko, shutil
 shutil.copy(path_credentials+'/credentials', os.path.dirname(os.path.abspath(__file__))+'/credentials.py')
 try:
-        from credentials import username, mot_de_pass, HOST
+        from credentials import mot_de_pass
         os.remove(os.path.dirname(os.path.abspath(__file__))+'/credentials.py')
 except ImportError:
         print('file with credentials was not found')
