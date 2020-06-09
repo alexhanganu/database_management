@@ -12,6 +12,7 @@ path_scratch = '/scratch/hanganua'
 path_processed = path_proj+'/subjects_processed'
 
 dir_stats = 'processed_fs_stats'
+zip_f = dir_stats+'_20200609_1500.zip'
 path_stats = path_scratch+'/'+dir_stats
 
 
@@ -34,4 +35,5 @@ for subDIR in listdir(path_processed):
     system('zip -q -r -m '+subDIR+'.zip '+subDIR)
 
 chdir(path_scratch)
-system('zip -q -r -m '+dir_stats+'_20200609.zip '+dir_stats)
+system('zip -q -r -m '+zip_f+' '+dir_stats)
+shutil.move(path_scratch+'/'+zip_f, path_stats+'/'+zip_f)
