@@ -34,4 +34,4 @@ for subDIR in listdir(path_processed):
     system('zip -q -r -m '+subDIR+'.zip '+subDIR)
 
 chdir(path_scratch)
-    system('zip -q -r -m '+dir_stats+'_20200609.zip '+dir_stats)
+system('zip -q -r -m '+dir_stats+'_20200609.zip '+dir_stats)
