@@ -1,5 +1,5 @@
 '''
-2020-06-06
+2020-06-13
 
 script aims to copy from local to remote computer
 the folders that are not present in the specified remote folder
@@ -14,20 +14,24 @@ source ~/.bashrc
 conda install paramiko
 after that you can use the python from the miniconda, that has paramiko installed
 '''
+import shutil, getpass, os, paramiko
+username = getpass.getuser()
 
-username = 'hanganua'
 HOST = 'beluga.calculquebec.ca'
-path_credentials = '/home/'+username # path to the txt-like file named "credentials" that will contain the follow$
 
-path_dst_dir_adni = '/adni/processed_fs' # on beluga
-path_dst_dir_ppmi = '/ppmi/processed_fs' # on elm
+
+
+path_credentials = os.path.join('/home',username) # path to the txt-like file named "credentials" that will contain the follow$
+
+path_dst_dir_adni = os.path.join('adni','processed_fs') # on beluga
+path_dst_dir_ppmi = os.path.join('ppmi','processed_fs') # on elm
 
 path_dst_dir = path_dst_dir_adni
 
-path_projects = '/home/'+username+'/projects/def-hanganua'
-path_src = path_projects+'/subjects_processed' # path that contains the files or folders t$
-path_log = path_projects+'/scripts/scp_log.txt' # path where a log file will be stored tha$
-path_dst = path_projects+path_dst_dir # path to the remote folder that the files/ folders w$
+path_projects = os.path.join('/home',username,'projects','def-hanganua')
+path_src = os.path.join(path_projects,'subjects_processed') # path that contains the files or folders t$
+path_log = os.path.join(path_projects,'scripts','scp_log.txt') # path where a log file will be stored tha$
+path_dst = os.path.join(path_projects,path_dst_dir) # path to the remote folder that the files/ folders w$
 
 
 '''
@@ -38,18 +42,14 @@ HOST = 'name.address.com' # host name of the remote computer
 
 
 
-
-
-import os, paramiko, shutil
-shutil.copy(path_credentials+'/credentials', os.path.dirname(os.path.abspath(__file__))+'/credentials.py')
+ 
+shutil.copy(os.path.join(path_credentials,'credentials'), os.path.dirname(os.path.abspath(__file__))+'/credentials.py')
 try:
         from credentials import mot_de_pass
         os.remove(os.path.dirname(os.path.abspath(__file__))+'/credentials.py')
 except ImportError:
         print('file with credentials was not found')
         raise SystemExit()
-
-
 
 
 
