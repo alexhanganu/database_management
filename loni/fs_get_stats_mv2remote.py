@@ -90,12 +90,12 @@ for subDIR in listdir(path_processed):
         mkdir(path_stats+'/'+subDIR)
         shutil.copytree(path.join(path_processed,subDIR,'stats'),path.join(path_stats,subDIR,'stats'))
         print('archiving ',subDIR)
-        system('zip -q -r -m '+subDIR+'.zip '+subDIR)
+        system('zip -r -q -m '+subDIR+'.zip '+subDIR)
     elif not path.isdir(path.join(path_processed, subDIR)):
         print(subDIR, ' not a directory')
 
 chdir(path_scratch)
-system('zip -q -r -m '+zip_f+' '+dir_stats)
+system('zip -r -q -m '+zip_f+' '+dir_stats)
 shutil.move(path.join(path_scratch,zip_f), path.join(path_processed,zip_f))
 
 
