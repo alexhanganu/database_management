@@ -1,5 +1,5 @@
 path_src = '/scratch/hanganua/database/loni_adni/source/mri_big'
-tmp_unzip = '/scratch/hanganua/database/loni_adni/mri_unzipped'
+tmp_unzip = '/scratch/hanganua/database/loni_adni/source/mri_unzipped'
 path_dst = '/home/hanganua/projects/def-hanganua/adni/source/mri'
 archive_type = '.zip'
 
@@ -9,45 +9,47 @@ import shutil
 
 class Extract_Individual():
 
-    def __init__(self, path_src, tmp_unzip, path_dst, deep = '', rename=''):
+    def __init__(self, path_src, tmp_unzip, path_dst, depth = '', rename=''):
         self.tmp_unzip = tmp_unzip
         self.path_dst = path_dst
         self.ls_mribig = [i for i in listdir(path_src) if archive_type in i]
-        for file in self.ls_mribig[:1]: # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!del
+        for file in self.ls_mribig:
             print('unzipping: ',file)
             system('unzip -q '+path.join(path_src, file)+' -d '+tmp_unzip)
-             if deep:
-                 self.tmp_unzip = self.deep(deep)
-             print(self.tmp_unzip)
-#            if rename:
-#                self.rename(rename, deep)
-#            self.rezip_individually()
-#            self.move_to_dst()
+            if depth:
+                 self.tmp_unzip = self.deep(depth)
+            print(self.tmp_unzip)
+            if rename:
+                self.rename(rename)
+            self.rezip_individually()
+            self.move_to_dst()
+            system("mv "+path.join(path_src, file)+" "+path.join(path_src, '2del_'+file))
 
-    def deeep(self, deep):
+    def deep(self, deep):
         return path.join(self.tmp_unzip, listdir(self.tmp_unzip)[0])
 
-
-    def rename(self, rename, deep):
+    def rename(self, rename):
         chdir(self.tmp_unzip)
-        for file in listdir(getcwd()):
-            system('mv '+file+' '+rename+file)
+        ls_dirs = listdir(getcwd())
+        for folder in ls_dirs:
+            print('renaming: ', folder," to ",rename+folder,len(ls_dirs[ls_dirs.index(folder):])," left")
+            system('mv '+folder+' '+rename+folder)
 
     def rezip_individually(self):
         chdir(self.tmp_unzip)
         ls_dirs = listdir(getcwd())
         for folder in ls_dirs:
             print('archiving: ', folder,"; ",len(ls_dirs[ls_dirs.index(folder):])," left")
-            system('zip -r -q -m '+folder+'.zip'+' '+folder)
+            system('zip -r -q -m '+folder+'.zip '+folder)
 
     def move_to_dst(self):
-        for file in self.tmp_unzip:
-            print('moving to destination: ',file)
-            system('mv '+path.join(self.tmp_unzip, file)+' '+self.path_dst)
-            system('chmod 777 '+path.join(self.path_dst, folder+'.zip'))
+        for file_zip in listdir(self.tmp_unzip):
+            print('moving: '+path.join(self.tmp_unzip, file_zip)+' '+self.path_dst)
+            system('mv '+path.join(self.tmp_unzip, file_zip)+' '+self.path_dst)
+            system('chmod 777 '+path.join(self.path_dst, file_zip))
 
 
-Extract_Individual(path_src, tmp_unzip, path_dst, deep = 1, 'ADNI_')
+Extract_Individual(path_src, tmp_unzip, path_dst, 1, 'ADNI_')
 
 
 '''
