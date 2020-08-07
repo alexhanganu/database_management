@@ -6,4 +6,5 @@
 
 cd /home/$USER
 
-./miniconda3/bin/python3.7 database/loni/unzip_rezip_individual.py
+./miniconda3/bin/python3.7 database_management/loni/unzip_rezip_individual.py
+
