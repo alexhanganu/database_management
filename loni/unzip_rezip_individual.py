@@ -13,7 +13,7 @@ class Extract_Individual():
         self.tmp_unzip = tmp_unzip
         self.path_dst = path_dst
         self.ls_mribig = [i for i in listdir(path_src) if archive_type in i]
-        for file in self.ls_mribig:
+        for file in self.ls_mribig[:4]:
             print('unzipping: ',file)
             system('unzip -q '+path.join(path_src, file)+' -d '+tmp_unzip)
             if depth:
@@ -23,7 +23,7 @@ class Extract_Individual():
                 self.rename(rename)
             self.rezip_individually()
             self.move_to_dst()
-            system("mv "+path.join(path_src, file)+" "+path.join(path_src, '2del_'+file))
+            system("mv "+path.join(path_src, file)+" "+path.join("/scratch", "hanganua", "database", "loni_adni", "source", "2del", '2del_'+file))
 
     def deep(self, deep):
         return path.join(self.tmp_unzip, listdir(self.tmp_unzip)[0])
